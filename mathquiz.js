@@ -17,8 +17,8 @@ class Question {
 }
 
 /* == Settings == */
-let timelimit = "300"
-let max_questions = "100"
+let timelimit = 300;
+let max_questions = 100;
 /* == End of settings ==*/
 
 let finished = false;
@@ -96,6 +96,23 @@ function finish() {
     cont.innerHTML = renderResult();
 }
 
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
 function start() {
     cont = document.getElementById("container");
     cont.addEventListener("keydown", function (e) {
@@ -105,6 +122,7 @@ function start() {
     });
     
     window.setTimeout(finish, timelimit*1000);
+    startTimer(timelimit, document.getElementById("timer"));
     
     createQuestion("*");
     cont.innerHTML = renderQuestion(active_question);
