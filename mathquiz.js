@@ -108,7 +108,7 @@ function startTimer(duration, display) {
         display.textContent = minutes + ":" + seconds;
 
         if (--timer < 0) {
-            timer = duration;
+            timer = 0;
         }
     }, 1000);
 }
@@ -122,7 +122,7 @@ function start() {
     });
     
     window.setTimeout(finish, timelimit*1000);
-    startTimer(timelimit, document.getElementById("timer"));
+    startTimer(timelimit-1, document.getElementById("timer"));
     
     createQuestion("*");
     cont.innerHTML = renderQuestion(active_question);
