@@ -41,7 +41,7 @@ h1 {
 }
 
 #timer {
-    color: red; //var(--main-text-color);
+    color: var(--header-color);
     font-size: 16pt;
     padding: 40px;
 }
