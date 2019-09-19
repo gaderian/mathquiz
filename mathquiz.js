@@ -16,6 +16,16 @@ class Question {
     
 }
 
+class QuizSettings {
+
+    constructor() {
+        this.timelimit = 300;
+        this.max_questions = 100;
+    }
+
+    constructor(String minified)
+}
+
 /* == Settings == */
 let timelimit = 300;
 let max_questions = 100;
