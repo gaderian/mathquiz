@@ -46,23 +46,23 @@ function random(from, to) {
 
 function addition() {
     var calcAnswer = function() { return this.num1 + this.num2 };
-    return new Question(random(0,9), random(0,9), "+", calcAnswer);
+    return new Question(random(0,10), random(0,10), "+", calcAnswer);
 }
 
 function subtraction() {
     var calcAnswer = function() { return this.num1 - this.num2 };
-    return new Question(random(0, 9), random(0, 9), "-", calcAnswer);
+    return new Question(random(0, 10), random(0, 10), "-", calcAnswer);
 }
 
 function multiplication() {
     var calcAnswer = function() { return this.num1 * this.num2 };
-    return new Question(random(0, 9), random(0, 9), "*", calcAnswer);
+    return new Question(random(0, 10), random(0, 10), "*", calcAnswer);
 }
 
 function divisionInteger() {
-    var divisor = random(1, 9);
+    var divisor = random(1, 10);
     var calcAnswer = function () { return this.num1 / this.num2 };
-    return new Question(random(0, 9) * divisor, divisor, "/", calcAnswer);
+    return new Question(random(0, 10) * divisor, divisor, "/", calcAnswer);
 }
 
 /**********************************************************************/
