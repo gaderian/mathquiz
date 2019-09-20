@@ -23,9 +23,17 @@ let max_questions = 100;
 
 let finished = false;
 let cont;
+let question_type;
 
 let questions = new Array();
 let active_question;
+
+/**********************************************************************/
+
+function get(name){
+   if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+      return decodeURIComponent(name[1]);
+}
 
 /**********************************************************************/
 
@@ -64,10 +72,10 @@ function createQuestion(type) {
 
     var q;
     switch (type) {
-        case "*": q = multiplication(); break;
-        case "/": q = divisionInteger(); break;
-        case "-": q = subtraction(); break;
-        case "+":
+        case "m": q = multiplication(); break;
+        case "d": q = divisionInteger(); break;
+        case "s": q = subtraction(); break;
+        case "a":
         default:  q = addition(); break;
     }
     questions.push(q);
@@ -80,20 +88,23 @@ function changeQuestion(event) {
     
     if ( questions.length >= max_questions ) {
         finish();
+        return;
     }
         
-    createQuestion("*");
+    createQuestion(question_type);
     cont.innerHTML = renderQuestion(active_question);
     document.getElementById("answer").focus();
 }
 
 function finish() {
+    console.log("called finished")
     if ( finished == true ) {
         return;
     }
     
-    finished = true;
     cont.innerHTML = renderResult();
+    cont.removeEventListener("keydown");
+    finished = true;
 }
 
 function startTimer(duration, display) {
@@ -113,7 +124,8 @@ function startTimer(duration, display) {
     }, 1000);
 }
 
-function start() {
+function start(type) {
+    question_type = type;
     cont = document.getElementById("container");
     cont.addEventListener("keydown", function (e) {
         if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
@@ -124,7 +136,7 @@ function start() {
     window.setTimeout(finish, timelimit*1000);
     startTimer(timelimit-1, document.getElementById("timer"));
     
-    createQuestion("*");
+    createQuestion(question_type);
     cont.innerHTML = renderQuestion(active_question);
     document.getElementById("answer").focus();
 }
