@@ -168,5 +168,5 @@ function setTypeHeader(type) {
         case "a":
         default:  name = "Addition"; break;
     }
-    document.getElementById("typeHeader").innerHtml = name;
+    document.getElementById("typeHeader").innerHTML = name;
 }
