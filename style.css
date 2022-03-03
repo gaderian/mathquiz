@@ -4,6 +4,7 @@
     --cont-background: #11999e;
     --cont-border: #40514e;
     --header-color: #10211e;
+    --type-header-color: var(--header-color);
 }
 
 body {
@@ -16,9 +17,13 @@ h1 {
     font-size: 48pt;
 }
 
+h2 {
+    text-align: center;
+    color: var(--type-header-color);
+    font-size: 32pt;
+}
+
 #container {
-    
-   
     width: 200px;
     border: 3px solid var(--cont-border);
     background-color: var(--cont-background);

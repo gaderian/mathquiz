@@ -126,6 +126,7 @@ function startTimer(duration, display) {
 
 function start(type) {
     question_type = type;
+    setTypeHeader(question_type);
     cont = document.getElementById("container");
     cont.addEventListener("keydown", function (e) {
         if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
@@ -156,4 +157,16 @@ function renderResult() {
     var output = "<div class='results'><h2>You got</h2>" + correctly_answered + " of " + questions.length + " correct";
     return output;
     
+}
+
+function setTypeHeader(type) {
+    let name;
+    switch (type) {
+        case "m": name = "Multiplication"; break;
+        case "d": name = "Division"; break;
+        case "s": name = "Subtraction"; break;
+        case "a":
+        default:  name = "Addition"; break;
+    }
+    document.getElementById("typeHeader").innerHtml = name;
 }
