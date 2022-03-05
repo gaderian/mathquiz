@@ -83,6 +83,9 @@ function createQuestion(type) {
 }
 
 function changeQuestion(event) {
+    if (event.key !== "Enter") {
+        return;
+    }
     var answer = event.target.value;
     active_question.submitted = Number(answer);
     
@@ -97,19 +100,20 @@ function changeQuestion(event) {
 }
 
 function finish() {
-    console.log("called finished")
     if ( finished == true ) {
         return;
     }
     
-    cont.innerHTML = renderResult();
-    cont.removeEventListener("keydown");
+    let resultContent = renderResult();
+    cont.innerHTML = resultContent;
+    setInterval(() => { cont.innerHTML = resultContent }, 3000);
+    cont.removeEventListener("keydown", changeQuestion);
     finished = true;
 }
 
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
-    setInterval(function () {
+    let interval = setInterval(function () {
         minutes = parseInt(timer / 60, 10)
         seconds = parseInt(timer % 60, 10);
 
@@ -118,8 +122,8 @@ function startTimer(duration, display) {
 
         display.textContent = minutes + ":" + seconds;
 
-        if (--timer < 0) {
-            timer = 0;
+        if (--timer < 0 || finished) {
+            clearInterval(interval);
         }
     }, 1000);
 }
@@ -128,11 +132,7 @@ function start(type) {
     question_type = type;
     setTypeHeader(question_type);
     cont = document.getElementById("container");
-    cont.addEventListener("keydown", function (e) {
-        if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
-            changeQuestion(e);
-        }
-    });
+    cont.addEventListener("keydown", changeQuestion);
     
     window.setTimeout(finish, timelimit*1000);
     startTimer(timelimit-1, document.getElementById("timer"));
@@ -168,5 +168,5 @@ function setTypeHeader(type) {
         case "a":
         default:  name = "Addition"; break;
     }
-    document.getElementById("typeHeader").innerHTML = name;
+    document.getElementById("typeHeader").textContent = name;
 }
